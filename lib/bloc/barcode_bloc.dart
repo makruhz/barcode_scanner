@@ -10,17 +10,17 @@ part 'barcode_event.dart';
 part 'barcode_state.dart';
 
 class BarcodeBloc extends Bloc<BarcodeEvent, BarcodeState> {
-  BarcodeBloc({required this.productsLocalRepository}) : super(const BarcodeState()) {
-    on<LoadBarcodesFromLocalStorage>(onLoadProductFromLocalStorage);
+  BarcodeBloc({required this.barCodesLocalRepository}) : super(const BarcodeState()) {
+    on<LoadBarcodesFromLocalStorage>(onLoadBarcodesFromLocalStorage);
     on<AddBarcode>(onAddBarcode);
     on<DeleteBarcode>(onDeleteBarcode);
   }
 
-  final BarCodesLocalRepository productsLocalRepository;
+  final BarCodesLocalRepository barCodesLocalRepository;
 
-  Future<void> onLoadProductFromLocalStorage(LoadBarcodesFromLocalStorage event, Emitter<BarcodeState> emit) async {
+  Future<void> onLoadBarcodesFromLocalStorage(LoadBarcodesFromLocalStorage event, Emitter<BarcodeState> emit) async {
     try {
-      final barcodes = await productsLocalRepository.loadBarCodes();
+      final barcodes = await barCodesLocalRepository.loadBarCodes();
       return emit(state.copyWith(status: BarcodeStatus.success, barcodes: barcodes));
     } catch (e) {
       return emit(state.copyWith(status: BarcodeStatus.failure));
@@ -28,12 +28,12 @@ class BarcodeBloc extends Bloc<BarcodeEvent, BarcodeState> {
   }
 
   Future<void> onAddBarcode(AddBarcode event, Emitter<BarcodeState> emit) async {
-    productsLocalRepository.addBarCode(event.barcode);
+    barCodesLocalRepository.addBarCode(event.barcode);
     return emit(state.copyWith(barcodes: List.of(state.barcodes)..add(event.barcode)));
   }
 
   Future<void> onDeleteBarcode(DeleteBarcode event, Emitter<BarcodeState> emit) async {
-    productsLocalRepository.deleteBarCode(event.barcode);
+    barCodesLocalRepository.deleteBarCode(event.barcode);
     return emit(state.copyWith(barcodes: List.of(state.barcodes)..remove(event.barcode)));
   }
 }

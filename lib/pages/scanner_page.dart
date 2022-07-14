@@ -73,8 +73,8 @@ class _ScannerPageState extends State<ScannerPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                final product = Barcode(_qrInfo!, DateTime.now());
-                                BlocProvider.of<BarcodeBloc>(context).add(AddBarcode(product));
+                                final barcode = Barcode(_qrInfo!, DateTime.now());
+                                BlocProvider.of<BarcodeBloc>(context).add(AddBarcode(barcode));
                                 Navigator.pop(context);
                               },
                               child: Text(AppLocalizations.of(context)!.add),

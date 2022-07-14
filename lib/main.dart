@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          BarcodeBloc(productsLocalRepository: BarCodesLocalRepository())..add(LoadBarcodesFromLocalStorage()),
+          BarcodeBloc(barCodesLocalRepository: BarCodesLocalRepository())..add(LoadBarcodesFromLocalStorage()),
       child: MaterialApp(
         title: 'Barcode scanner',
         theme: ThemeData(
