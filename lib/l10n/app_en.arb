@@ -1,0 +1,11 @@
+{
+  "scanner": "Scanner",
+  "barcodes_list": "Barcode list",
+  "no_barcodes": "No scanned barcodes",
+  "scan_barcode": "Scan barcode",
+  "please_scan_barcode": "Please scan barcode",
+  "your_bardcode": "Your barcode: ",
+  "went_wrong": "Someting went wrong",
+  "add": "Add",
+  "scan_again": "Scan again"
+}

@@ -4,6 +4,7 @@ import 'package:barcode_scanner/pages/scanner_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BarcodeListPage extends StatelessWidget {
   const BarcodeListPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class BarcodeListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lista produktów"),
+        title: Text(AppLocalizations.of(context)!.barcodes_list),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -23,7 +24,7 @@ class BarcodeListPage extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               case BarcodeStatus.success:
                 if (state.barcodes.isEmpty) {
-                  return const Center(child: Text('Brak zeskanowanych barkodów'));
+                  return Center(child: Text(AppLocalizations.of(context)!.no_barcodes));
                 } else {
                   return ListView.builder(
                       itemCount: state.barcodes.length,
@@ -32,7 +33,7 @@ class BarcodeListPage extends StatelessWidget {
                       });
                 }
               default:
-                return const Text('Cos poszło nie tak :(');
+                return Text(AppLocalizations.of(context)!.went_wrong);
             }
           },
         ),
@@ -41,7 +42,7 @@ class BarcodeListPage extends StatelessWidget {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ScannerPage()));
         },
-        tooltip: 'Zrób skan barkodu',
+        tooltip: AppLocalizations.of(context)!.scan_barcode,
         child: const Icon(Icons.qr_code_scanner_rounded),
       ),
     );
@@ -56,8 +57,8 @@ class BarCodeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
-      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
       decoration: const BoxDecoration(
         color: Colors.orangeAccent,
         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -65,6 +66,7 @@ class BarCodeCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(width: 10),
           Text(barCode.data),
           const Spacer(),
           Text(DateFormat('dd.MM.yyyy').format(barCode.date)),

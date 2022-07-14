@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
   flutter_qr_bar_scanner: ^3.0.2
@@ -39,3 +41,4 @@ flutter_icons:
 
 flutter:
   uses-material-design: true
+  generate: true

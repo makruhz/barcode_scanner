@@ -1,0 +1,11 @@
+{
+  "scanner": "Skaner",
+  "barcodes_list": "Lista kodów kreskowych",
+  "no_barcodes": "Brak zeskanowanych kodów kreskowych",
+  "scan_barcode": "Skanuj kod kreskowy",
+  "please_scan_barcode": "Proszę zeskanuj kod kreskowy",
+  "your_bardcode": "Twój kod kreskowy: ",
+  "went_wrong": "Coś się nie udało",
+  "add": "Dodaj",
+  "scan_again": "Skanuj ponownie"
+}
