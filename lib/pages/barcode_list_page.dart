@@ -3,6 +3,7 @@ import 'package:barcode_scanner/models/product.dart';
 import 'package:barcode_scanner/pages/scanner_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class BarcodeListPage extends StatelessWidget {
   const BarcodeListPage({Key? key}) : super(key: key);
@@ -58,11 +59,11 @@ class BarCard extends StatelessWidget {
         children: [
           Text(product.code),
           const Spacer(),
-          Text(product.date.timeZoneName),
+          Text(DateFormat('dd.MM.yyyy').format(product.date)),
           const SizedBox(width: 50),
           IconButton(
             onPressed: () {
-              print('delete');
+              BlocProvider.of<ProductBloc>(context).add(DeleteProduct(product));
             },
             icon: const Icon(Icons.cancel),
           ),

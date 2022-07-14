@@ -1,4 +1,7 @@
+import 'package:barcode_scanner/bloc/product_bloc.dart';
+import 'package:barcode_scanner/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
 
 class ScannerPage extends StatefulWidget {
@@ -55,9 +58,9 @@ class _ScannerPageState extends State<ScannerPage> {
           ),
           isScanned
               ? SizedBox(
-            height: 150,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  height: 150,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Twój kod to: ${_qrInfo!}"),
                       const SizedBox(height: 20),
@@ -74,14 +77,18 @@ class _ScannerPageState extends State<ScannerPage> {
                             child: const Text('Skanuj ponownie'),
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final product = Product(_qrInfo!, DateTime.now());
+                              BlocProvider.of<ProductBloc>(context).add(AddProduct(product));
+                              Navigator.pop(context);
+                            },
                             child: const Text('Dodaj'),
                           ),
                         ],
                       ),
                     ],
                   ),
-              )
+                )
               : Container(alignment: Alignment.center, height: 150, child: const Text('Proszę zeskanuj kod'))
         ],
       ),
