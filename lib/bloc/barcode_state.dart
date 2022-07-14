@@ -1,4 +1,4 @@
-part of 'product_bloc.dart';
+part of 'barcode_bloc.dart';
 
 enum BarcodeStatus { initial, success, failure }
 

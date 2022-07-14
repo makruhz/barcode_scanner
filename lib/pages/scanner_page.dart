@@ -1,4 +1,4 @@
-import 'package:barcode_scanner/bloc/product_bloc.dart';
+import 'package:barcode_scanner/bloc/barcode_bloc.dart';
 import 'package:barcode_scanner/models/barcode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

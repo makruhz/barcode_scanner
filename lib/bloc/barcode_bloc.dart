@@ -5,9 +5,9 @@ import 'package:barcode_scanner/repositories/barcodes_local_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'product_event.dart';
+part 'barcode_event.dart';
 
-part 'product_state.dart';
+part 'barcode_state.dart';
 
 class BarcodeBloc extends Bloc<BarcodeEvent, BarcodeState> {
   BarcodeBloc({required this.productsLocalRepository}) : super(const BarcodeState()) {
