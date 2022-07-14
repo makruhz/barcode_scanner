@@ -1,23 +1,23 @@
 part of 'product_bloc.dart';
 
-enum ProductStatus { initial, success, failure }
+enum BarcodeStatus { initial, success, failure }
 
-class ProductState extends Equatable {
-  const ProductState({this.status = ProductStatus.initial, this.products = const <Product>[]});
+class BarcodeState extends Equatable {
+  const BarcodeState({this.status = BarcodeStatus.initial, this.barcodes = const <Barcode>[]});
 
-  final ProductStatus status;
-  final List<Product> products;
+  final BarcodeStatus status;
+  final List<Barcode> barcodes;
 
-  ProductState copyWith({
-    ProductStatus? status,
-    List<Product>? products,
+  BarcodeState copyWith({
+    BarcodeStatus? status,
+    List<Barcode>? barcodes,
   }) {
-    return ProductState(
+    return BarcodeState(
       status: status ?? this.status,
-      products: products ?? this.products,
+      barcodes: barcodes ?? this.barcodes,
     );
   }
 
   @override
-  List<Object> get props => [status, products];
+  List<Object> get props => [status, barcodes];
 }

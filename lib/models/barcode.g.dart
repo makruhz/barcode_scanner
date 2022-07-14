@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product.dart';
+part of 'barcode.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ProductAdapter extends TypeAdapter<Product> {
+class BarcodeAdapter extends TypeAdapter<Barcode> {
   @override
   final int typeId = 1;
 
   @override
-  Product read(BinaryReader reader) {
+  Barcode read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Product(
+    return Barcode(
       fields[0] as String,
       fields[1] as DateTime,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Product obj) {
+  void write(BinaryWriter writer, Barcode obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.code)
+      ..write(obj.data)
       ..writeByte(1)
       ..write(obj.date);
   }
@@ -38,7 +38,7 @@ class ProductAdapter extends TypeAdapter<Product> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProductAdapter &&
+      other is BarcodeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

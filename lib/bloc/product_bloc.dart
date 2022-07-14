@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:barcode_scanner/models/product.dart';
+import 'package:barcode_scanner/models/barcode.dart';
+import 'package:barcode_scanner/repositories/barcodes_local_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,23 +9,31 @@ part 'product_event.dart';
 
 part 'product_state.dart';
 
-class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductBloc() : super(const ProductState()) {
-    on<LoadProductFromLocalStorage>(onLoadProductFromLocalStorage);
-    on<AddProduct>(onAddProduct);
-    on<DeleteProduct>(onDeleteProduct);
+class BarcodeBloc extends Bloc<BarcodeEvent, BarcodeState> {
+  BarcodeBloc({required this.productsLocalRepository}) : super(const BarcodeState()) {
+    on<LoadBarcodesFromLocalStorage>(onLoadProductFromLocalStorage);
+    on<AddBarcode>(onAddBarcode);
+    on<DeleteBarcode>(onDeleteBarcode);
   }
 
-  Future<void> onLoadProductFromLocalStorage(LoadProductFromLocalStorage event, Emitter<ProductState> emit) async {
-    Future.delayed(const Duration(seconds: 2));
-    return emit(state.copyWith(status: ProductStatus.success, products: []));
+  final BarCodesLocalRepository productsLocalRepository;
+
+  Future<void> onLoadProductFromLocalStorage(LoadBarcodesFromLocalStorage event, Emitter<BarcodeState> emit) async {
+    try {
+      final barcodes = await productsLocalRepository.loadBarCodes();
+      return emit(state.copyWith(status: BarcodeStatus.success, barcodes: barcodes));
+    } catch (e) {
+      return emit(state.copyWith(status: BarcodeStatus.failure));
+    }
   }
 
-  Future<void> onAddProduct(AddProduct event, Emitter<ProductState> emit) async {
-    return emit(state.copyWith(products: List.of(state.products)..add(event.product)));
+  Future<void> onAddBarcode(AddBarcode event, Emitter<BarcodeState> emit) async {
+    productsLocalRepository.addBarCode(event.barcode);
+    return emit(state.copyWith(barcodes: List.of(state.barcodes)..add(event.barcode)));
   }
 
-  Future<void> onDeleteProduct(DeleteProduct event, Emitter<ProductState> emit) async {
-    return emit(state.copyWith(products: List.of(state.products)..remove(event.product)));
+  Future<void> onDeleteBarcode(DeleteBarcode event, Emitter<BarcodeState> emit) async {
+    productsLocalRepository.deleteBarCode(event.barcode);
+    return emit(state.copyWith(barcodes: List.of(state.barcodes)..remove(event.barcode)));
   }
 }

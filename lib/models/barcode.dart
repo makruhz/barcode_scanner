@@ -1,14 +1,14 @@
 import 'package:hive/hive.dart';
 
-part 'product.g.dart';
+part 'barcode.g.dart';
 
 @HiveType(typeId: 1)
-class Product {
+class Barcode extends HiveObject {
   @HiveField(0)
-  String code;
+  String data;
 
   @HiveField(1)
   DateTime date;
 
-  Product(this.code, this.date);
+  Barcode(this.data, this.date);
 }

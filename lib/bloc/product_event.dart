@@ -1,28 +1,28 @@
 part of 'product_bloc.dart';
 
-abstract class ProductEvent extends Equatable {
-  const ProductEvent();
+abstract class BarcodeEvent extends Equatable {
+  const BarcodeEvent();
 }
 
-class LoadProductFromLocalStorage extends ProductEvent {
+class LoadBarcodesFromLocalStorage extends BarcodeEvent {
   @override
   List<Object> get props => [];
 }
 
-class AddProduct extends ProductEvent {
-  final Product product;
+class AddBarcode extends BarcodeEvent {
+  final Barcode barcode;
 
-  const AddProduct(this.product);
+  const AddBarcode(this.barcode);
 
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [barcode];
 }
 
-class DeleteProduct extends ProductEvent {
-  final Product product;
+class DeleteBarcode extends BarcodeEvent {
+  final Barcode barcode;
 
-  const DeleteProduct(this.product);
+  const DeleteBarcode(this.barcode);
 
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [barcode];
 }

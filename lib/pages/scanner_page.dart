@@ -1,5 +1,5 @@
 import 'package:barcode_scanner/bloc/product_bloc.dart';
-import 'package:barcode_scanner/models/product.dart';
+import 'package:barcode_scanner/models/barcode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_qr_bar_scanner/qr_bar_scanner_camera.dart';
@@ -40,57 +40,46 @@ class _ScannerPageState extends State<ScannerPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Skaner'),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: QRBarScannerCamera(
-                onError: (context, error) => Text(
-                  error.toString(),
-                  style: const TextStyle(color: Colors.red),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: QRBarScannerCamera(
+                  onError: (context, error) => Text(
+                    error.toString(),
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                  qrCodeCallback: (code) {
+                    _qrCallback(code);
+                  },
                 ),
-                qrCodeCallback: (code) {
-                  _qrCallback(code);
-                },
               ),
             ),
-          ),
-          isScanned
-              ? SizedBox(
-                  height: 150,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Twój kod to: ${_qrInfo!}"),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                isScanned = false;
-                                _qrInfo = null;
-                              });
-                            },
-                            child: const Text('Skanuj ponownie'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              final product = Product(_qrInfo!, DateTime.now());
-                              BlocProvider.of<ProductBloc>(context).add(AddProduct(product));
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Dodaj'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              : Container(alignment: Alignment.center, height: 150, child: const Text('Proszę zeskanuj kod'))
-        ],
+            isScanned
+                ? SizedBox(
+                    height: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text("Twój kod to: ${_qrInfo!}"),
+                        const Text("Zeskanuj ponownie lub dodaj swój kod"),
+                        ElevatedButton(
+                          onPressed: () {
+                            final product = Barcode(_qrInfo!, DateTime.now());
+                            BlocProvider.of<BarcodeBloc>(context).add(AddBarcode(product));
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Dodaj'),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(alignment: Alignment.center, height: 150, child: const Text('Proszę zeskanuj kod'))
+          ],
+        ),
       ),
     );
   }
