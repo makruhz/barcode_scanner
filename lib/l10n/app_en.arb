@@ -1,4 +1,5 @@
 {
+  "app_title": "Barcode scanner",
   "scanner": "Scanner",
   "barcodes_list": "Barcode list",
   "no_barcodes": "No scanned barcodes",

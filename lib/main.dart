@@ -21,10 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          BarcodeBloc(barCodesLocalRepository: BarCodesLocalRepository())..add(LoadBarcodesFromLocalStorage()),
+      create: (_) => BarcodeBloc(
+        BarcodesLocalRepository(),
+      )..add(BarcodeLoaded()),
       child: MaterialApp(
-        title: 'Barcode scanner',
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.app_title,
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),

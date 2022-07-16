@@ -4,24 +4,24 @@ abstract class BarcodeEvent extends Equatable {
   const BarcodeEvent();
 }
 
-class LoadBarcodesFromLocalStorage extends BarcodeEvent {
+class BarcodeLoaded extends BarcodeEvent {
   @override
   List<Object> get props => [];
 }
 
-class AddBarcode extends BarcodeEvent {
+class BarcodeAddPressed extends BarcodeEvent {
   final Barcode barcode;
 
-  const AddBarcode(this.barcode);
+  const BarcodeAddPressed(this.barcode);
 
   @override
   List<Object> get props => [barcode];
 }
 
-class DeleteBarcode extends BarcodeEvent {
+class BarcodeDeletePressed extends BarcodeEvent {
   final Barcode barcode;
 
-  const DeleteBarcode(this.barcode);
+  const BarcodeDeletePressed(this.barcode);
 
   @override
   List<Object> get props => [barcode];

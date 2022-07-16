@@ -26,14 +26,17 @@ class BarcodeListPage extends StatelessWidget {
                 if (state.barcodes.isEmpty) {
                   return Center(child: Text(AppLocalizations.of(context)!.no_barcodes));
                 } else {
-                  return ListView.builder(
-                      itemCount: state.barcodes.length,
-                      itemBuilder: (context, index) {
-                        return BarCodeCard(barCode: state.barcodes[index]);
-                      });
+                  return ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    separatorBuilder: (context, index) => const Divider(color: Colors.grey),
+                    itemCount: state.barcodes.length,
+                    itemBuilder: (context, index) {
+                      return BarCodeCard(barCode: state.barcodes[index]);
+                    },
+                  );
                 }
               default:
-                return Text(AppLocalizations.of(context)!.went_wrong);
+                return Center(child: Text(AppLocalizations.of(context)!.went_wrong));
             }
           },
         ),
@@ -56,24 +59,24 @@ class BarCodeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-      decoration: const BoxDecoration(
-        color: Colors.orangeAccent,
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(width: 10),
-          Text(barCode.data),
-          const Spacer(),
-          Text(DateFormat('dd.MM.yyyy').format(barCode.date)),
-          const SizedBox(width: 50),
+          Expanded(
+            child: Text(
+              barCode.data,
+              style: const TextStyle(fontSize: 16.0),
+            ),
+          ),
+          Text(
+            DateFormat('dd.MM.yyyy').format(barCode.date),
+            style: const TextStyle(fontSize: 16.0),
+          ),
+          const SizedBox(width: 30),
           IconButton(
             onPressed: () {
-              BlocProvider.of<BarcodeBloc>(context).add(DeleteBarcode(barCode));
+              context.read<BarcodeBloc>().add(BarcodeDeletePressed(barCode));
             },
             icon: const Icon(Icons.cancel),
           ),

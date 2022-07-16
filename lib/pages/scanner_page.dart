@@ -16,17 +16,11 @@ class _ScannerPageState extends State<ScannerPage> {
   String? _qrInfo;
   bool isScanned = false;
 
-  _qrCallback(String? code) {
+  _qrCodeCallback(String? code) {
     setState(() {
       isScanned = true;
       _qrInfo = code;
     });
-  }
-
-  @override
-  void initState() {
-    isScanned = false;
-    super.initState();
   }
 
   @override
@@ -47,7 +41,7 @@ class _ScannerPageState extends State<ScannerPage> {
                     style: const TextStyle(color: Colors.red),
                   ),
                   qrCodeCallback: (code) {
-                    _qrCallback(code);
+                    _qrCodeCallback(code);
                   },
                 ),
               ),
@@ -74,7 +68,7 @@ class _ScannerPageState extends State<ScannerPage> {
                             ElevatedButton(
                               onPressed: () {
                                 final barcode = Barcode(_qrInfo!, DateTime.now());
-                                BlocProvider.of<BarcodeBloc>(context).add(AddBarcode(barcode));
+                                context.read<BarcodeBloc>().add(BarcodeAddPressed(barcode));
                                 Navigator.pop(context);
                               },
                               child: Text(AppLocalizations.of(context)!.add),

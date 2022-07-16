@@ -10,30 +10,30 @@ part 'barcode_event.dart';
 part 'barcode_state.dart';
 
 class BarcodeBloc extends Bloc<BarcodeEvent, BarcodeState> {
-  BarcodeBloc({required this.barCodesLocalRepository}) : super(const BarcodeState()) {
-    on<LoadBarcodesFromLocalStorage>(onLoadBarcodesFromLocalStorage);
-    on<AddBarcode>(onAddBarcode);
-    on<DeleteBarcode>(onDeleteBarcode);
+  BarcodeBloc(this._barCodesLocalRepository) : super(const BarcodeState()) {
+    on<BarcodeLoaded>(_onBarcodeLoaded);
+    on<BarcodeAddPressed>(_onBarcodeAddPressed);
+    on<BarcodeDeletePressed>(_onBarcodeDeletePressed);
   }
 
-  final BarCodesLocalRepository barCodesLocalRepository;
+  final BarcodesLocalRepository _barCodesLocalRepository;
 
-  Future<void> onLoadBarcodesFromLocalStorage(LoadBarcodesFromLocalStorage event, Emitter<BarcodeState> emit) async {
+  Future<void> _onBarcodeLoaded(BarcodeLoaded event, Emitter<BarcodeState> emit) async {
     try {
-      final barcodes = await barCodesLocalRepository.loadBarCodes();
+      final barcodes = await _barCodesLocalRepository.loadBarCodes();
       return emit(state.copyWith(status: BarcodeStatus.success, barcodes: barcodes));
     } catch (e) {
       return emit(state.copyWith(status: BarcodeStatus.failure));
     }
   }
 
-  Future<void> onAddBarcode(AddBarcode event, Emitter<BarcodeState> emit) async {
-    barCodesLocalRepository.addBarCode(event.barcode);
+  Future<void> _onBarcodeAddPressed(BarcodeAddPressed event, Emitter<BarcodeState> emit) async {
+    _barCodesLocalRepository.addBarCode(event.barcode);
     return emit(state.copyWith(barcodes: List.of(state.barcodes)..add(event.barcode)));
   }
 
-  Future<void> onDeleteBarcode(DeleteBarcode event, Emitter<BarcodeState> emit) async {
-    barCodesLocalRepository.deleteBarCode(event.barcode);
+  Future<void> _onBarcodeDeletePressed(BarcodeDeletePressed event, Emitter<BarcodeState> emit) async {
+    _barCodesLocalRepository.deleteBarCode(event.barcode);
     return emit(state.copyWith(barcodes: List.of(state.barcodes)..remove(event.barcode)));
   }
 }

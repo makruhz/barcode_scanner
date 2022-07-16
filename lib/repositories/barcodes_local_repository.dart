@@ -1,7 +1,7 @@
 import 'package:barcode_scanner/models/barcode.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class BarCodesLocalRepository {
+class BarcodesLocalRepository {
   Future<Box> barcodesBox() async {
     var box = await Hive.openBox<Barcode>("barcodes");
     return box;

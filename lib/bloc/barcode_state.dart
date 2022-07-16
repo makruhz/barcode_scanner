@@ -3,7 +3,10 @@ part of 'barcode_bloc.dart';
 enum BarcodeStatus { initial, success, failure }
 
 class BarcodeState extends Equatable {
-  const BarcodeState({this.status = BarcodeStatus.initial, this.barcodes = const <Barcode>[]});
+  const BarcodeState({
+    this.status = BarcodeStatus.initial,
+    this.barcodes = const [],
+  });
 
   final BarcodeStatus status;
   final List<Barcode> barcodes;

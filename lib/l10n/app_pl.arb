@@ -1,4 +1,5 @@
 {
+  "app_title": "Skaner kodów kreskowych",
   "scanner": "Skaner",
   "barcodes_list": "Lista kodów kreskowych",
   "no_barcodes": "Brak zeskanowanych kodów kreskowych",
