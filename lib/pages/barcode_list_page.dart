@@ -31,7 +31,7 @@ class BarcodeListPage extends StatelessWidget {
                     separatorBuilder: (context, index) => const Divider(color: Colors.grey),
                     itemCount: state.barcodes.length,
                     itemBuilder: (context, index) {
-                      return BarCodeCard(barCode: state.barcodes[index]);
+                      return BarCodeListTile(barCode: state.barcodes[index]);
                     },
                   );
                 }
@@ -52,8 +52,8 @@ class BarcodeListPage extends StatelessWidget {
   }
 }
 
-class BarCodeCard extends StatelessWidget {
-  const BarCodeCard({Key? key, required this.barCode}) : super(key: key);
+class BarCodeListTile extends StatelessWidget {
+  const BarCodeListTile({Key? key, required this.barCode}) : super(key: key);
 
   final Barcode barCode;
 
